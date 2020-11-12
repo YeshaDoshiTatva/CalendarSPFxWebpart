@@ -1,0 +1,18 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx-build/config.2.0.schema.json",
+  "version": "2.0",
+  "bundles": {
+    "calendar-wepart-web-part": {
+      "components": [
+        {
+          "entrypoint": "./lib/webparts/calendarWepart/CalendarWepartWebPart.js",
+          "manifest": "./src/webparts/calendarWepart/CalendarWepartWebPart.manifest.json"
+        }
+      ]
+    }
+  },
+  "externals": {},
+  "localizedResources": {
+    "CalendarWepartWebPartStrings": "lib/webparts/calendarWepart/loc/{locale}.js"
+  }
+}
