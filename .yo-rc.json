@@ -3,7 +3,7 @@
     "isCreatingSolution": true,
     "environment": "spo",
     "version": "1.10.0",
-    "libraryName": "calendar-sp-fx-webpart",
+    "libraryName": "calendar-spfx-webpart",
     "libraryId": "a0ad077f-d8a4-48ed-ab7f-1ad7f2e5ff58",
     "packageManager": "npm",
     "isDomainIsolated": false,

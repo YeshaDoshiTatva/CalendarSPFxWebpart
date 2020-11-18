@@ -1,13 +1,13 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/spfx-build/package-solution.schema.json",
   "solution": {
-    "name": "calendar-sp-fx-webpart-client-side-solution",
+    "name": "calendar-spfx-webpart-client-side-solution",
     "id": "a0ad077f-d8a4-48ed-ab7f-1ad7f2e5ff58",
     "version": "1.0.0.0",
     "includeClientSideAssets": true,
     "isDomainIsolated": false
   },
   "paths": {
-    "zippedPackage": "solution/calendar-sp-fx-webpart.sppkg"
+    "zippedPackage": "solution/calendar-spfx-webpart.sppkg"
   }
 }

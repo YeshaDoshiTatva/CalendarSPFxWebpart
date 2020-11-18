@@ -72,17 +72,19 @@
     }
   }
 
+  // Custom CSS
   .clsMain{
     width: 50%;
     margin: auto;
-    border: solid 1px #f2f2f2;
+    border-right: #f2f2f2 solid 1px;
+    border-left: #f2f2f2 solid 1px;
   }
 
   .msGridcol{
     box-sizing: border-box;
-    border-bottom: 2px solid #F2F2F2;
     padding: 20px;
     text-align: center;
+    border-bottom: #f2f2f2 solid 2px;
   }
 
   .clsHeading{
@@ -95,21 +97,31 @@
   .ms-Icon{
     color: red;
   }
+
   #clsIcon{
     font-size: x-large;
     color:#FF8158;
   }
+
   .clsDivHeading{
     background-color: #2CA1D9;
     height: 37px;
-    border-right: #f2f2f2 solid 1px;
-    border-left: #f2f2f2 solid 1px;
   }
+  
   #icon{
     color: white;
     font-size: x-large;
     float: left;
     padding-top: 5px;
     padding-left: 5px;
+  }
+
+  .clsMessage{
+    text-align: center;
+  }
+
+  .clsLink{
+    color: black;
+    text-decoration: none;
   }
 }

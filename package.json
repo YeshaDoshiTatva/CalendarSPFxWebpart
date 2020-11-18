@@ -1,5 +1,5 @@
 {
-  "name": "calendar-sp-fx-webpart",
+  "name": "calendar-spfx-webpart",
   "version": "0.0.1",
   "private": true,
   "main": "lib/index.js",

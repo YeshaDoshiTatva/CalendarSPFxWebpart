@@ -4,9 +4,6 @@ import { ICalendarWepartProps } from './ICalendarWepartProps';
 import { ICalendarItems } from '../Models/ICalendarItems';
 import { ICalendarWepartState } from './ICalendarWebpartState';
 import { SPHttpClient, SPHttpClientResponse} from '@microsoft/sp-http';
-import { escape } from '@microsoft/sp-lodash-subset';
-import { ICalendarWepartWebPartProps } from '../CalendarWepartWebPart';
-// import {SPHttpClient, SPHttpClientResponse } from '@microsoft/sp-core-library';
 import * as strings from 'CalendarWepartWebPartStrings';
 import {Icon} from 'office-ui-fabric-react';
 
@@ -17,41 +14,42 @@ export default class CalendarWepart extends React.Component<ICalendarWepartProps
 
     this.state = {
       CalendarItems : [],
-      ListURL: this.props.listUrl      
+      ListURL: this.props.ListUrl   
     }
   }
 
   private lstCalendarItem : ICalendarItems[];
 
-  componentDidMount = () => {
-    ///<summary>On load event.</summary>
-    this.getListItems();
-  };
+    componentDidMount = () => {
+      ///<summary>On load event.</summary>
+      this.getListItems();
+    };
 
+    componentDidUpdate = (prevProps) => {
+      ///<summary>Event called when any states is changed.</summary>
+      ///<param name="prevProps">Previous Properties values</param>
+      if(prevProps.ListUrl !== this.props.ListUrl){
+        if(this.props.ListUrl !== undefined || this.props.ListUrl !== null || this.props.ListUrl.trim() !== ""){
+          this.getListItems();
+        }
+      }
 
-  componentDidUpdate = (prevProps) => {
-    ///<summary>Update event.</summary>
-    /// <param name="prevProps">Previous Properties</param>
-    if(prevProps.listUrl !== this.props.listUrl){
-      if(this.props.listUrl !== undefined || this.props.listUrl !== null || this.props.listUrl.trim() !== ""){
+      if(prevProps.DisplayItems !== this.props.DisplayItems){
         this.getListItems();
       }
-    }
-    if(prevProps.displayItems !== this.props.displayItems){
-      this.getListItems();
-    }
-  };
+    };
 
     getListItems = () => {
     ///<summary>Get items from the list.</summary>
-    if(this.props.listUrl !== undefined || this.props.displayItems !== undefined){
-      let listURL = this.props.listUrl;
-      let strCurrentURL = new URL(listURL);
-      let currentCalendarAbsoluteURL = listURL.substr(0, listURL.lastIndexOf('/Lists/'));
-      let pathname = strCurrentURL.pathname;
-      let today = new Date().toISOString();
+    const messageDiv = document.querySelector("#divMessage");
+    if(this.props.ListUrl !== undefined && this.props.DisplayItems !== undefined){
+      let strListURLString = this.props.ListUrl;
+      let strCurrentURL = new URL(strListURLString);
+      let strListAbsoluteURL = strListURLString.substr(0, strListURLString.lastIndexOf('/Lists/'));
+      let strListPathName = strCurrentURL.pathname;
+      let todayDate = new Date().toISOString();
       
-      this.props.spHttpClient.get(currentCalendarAbsoluteURL+"/_api/Web/GetList('"+pathname+"')/items?$select=ID,Title,Description,EventDate&$top="+this.props.displayItems+"&$filter=EventDate ge '"+today+"'", SPHttpClient.configurations.v1)
+      this.props.spHttpClient.get(strListAbsoluteURL+"/_api/Web/GetList('"+strListPathName+"')/items?$select=ID,Title,Description,EventDate&$top="+this.props.DisplayItems+"&$filter=EventDate ge '"+todayDate+"'", SPHttpClient.configurations.v1)
       .then((response: SPHttpClientResponse) => {
         if(response.ok){
           response.json().then((responseJSON) => {
@@ -69,18 +67,16 @@ export default class CalendarWepart extends React.Component<ICalendarWepartProps
           });
         }
         else{
-          const messageDiv = document.querySelector("#divMessage");
           messageDiv.innerHTML = strings.NoItemFoundMessage;
           this.setState({CalendarItems: []});
         }
-        
       }).catch((error) => {
         console.log("Error in getListItems ---->",error);
       });
     }
     else{
-      const messageDiv = document.querySelector("#divMessage");
       messageDiv.innerHTML = strings.PropertiesMessage;
+      this.setState({CalendarItems: []});
     }
   }
     
@@ -94,18 +90,18 @@ export default class CalendarWepart extends React.Component<ICalendarWepartProps
             <Icon iconName="Event" id={styles.icon} className='ms-Icon'/>
               <p className={styles.clsHeading}>Upcoming Events</p>
             </div>
-            <p id="divMessage"></p>
+            <p id="divMessage" className={styles.clsMessage}></p>
             
             <div className="clsEvents">
                 {this.state.CalendarItems.map(item => (
                   <div className={styles.msGridcol}>
                     <Icon iconName="EventInfo" id={styles.clsIcon} className="ms-Icon"/>
-                     <h3><a href={this.props.listUrl+'/DispForm.aspx?ID='+item.ID}>{item.Title}</a></h3>
+                     <h3><a target="_blank" href={this.props.ListUrl+'/DispForm.aspx?ID='+item.ID} className={styles.clsLink}>{item.Title}</a></h3>
                      <p>{item.Description != null && item.Description.length > 0 ? item.Description.replace(/<[^>]+>/g, '') : ''}</p>
                   </div>
                 ))}
             </div>
-            </div>
+          </div>
         </div>
       </div>
     );

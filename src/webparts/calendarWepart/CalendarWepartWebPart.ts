@@ -12,11 +12,10 @@ import { BaseClientSideWebPart } from '@microsoft/sp-webpart-base';
 import * as strings from 'CalendarWepartWebPartStrings';
 import CalendarWepart from './components/CalendarWepart';
 import { ICalendarWepartProps } from './components/ICalendarWepartProps';
-import { values } from 'office-ui-fabric-react';
 
 export interface ICalendarWepartWebPartProps {
-  listUrl: string;
-  displayItems: string;
+  PropertiesListUrl: string;
+  PropertiesDisplayItems: string;
 }
 
 const arrNumberOfItems: IPropertyPaneDropdownOption[] = [{key:1,text:'1'},{key:2,text:'2'},{key:3,text:'3'},{key:4,text:'4'},{key:5,text:'5'}];
@@ -27,8 +26,8 @@ export default class CalendarWepartWebPart extends BaseClientSideWebPart <ICalen
     const element: React.ReactElement<ICalendarWepartProps> = React.createElement(
       CalendarWepart,
       {
-        listUrl: this.properties.listUrl,
-        displayItems: this.properties.displayItems,
+        ListUrl: this.properties.PropertiesListUrl,
+        DisplayItems: this.properties.PropertiesDisplayItems,
         spHttpClient: this.context.spHttpClient,
         Title: "",
         Description: ""
@@ -38,13 +37,9 @@ export default class CalendarWepartWebPart extends BaseClientSideWebPart <ICalen
     ReactDom.render(element, this.domElement);
   }
 
-  protected onDispose(): void {
+  onDispose = () => {
     ReactDom.unmountComponentAtNode(this.domElement);
   }
-
-  // protected get dataVersion(): Version {
-  //   return Version.parse('1.0');
-  // }
 
   protected getPropertyPaneConfiguration(): IPropertyPaneConfiguration {
     return {
@@ -56,14 +51,14 @@ export default class CalendarWepartWebPart extends BaseClientSideWebPart <ICalen
           groups: [
             {
               groupFields: [
-                PropertyPaneTextField('listUrl', {
+                PropertyPaneTextField('PropertiesListUrl', {
                   label: strings.ListURLFieldLabel,
                   value: ""
                 }),
-                PropertyPaneDropdown('displayItems', {
+                PropertyPaneDropdown('PropertiesDisplayItems', {
                   options: arrNumberOfItems,
                   label: strings.DisplayItems,
-                  selectedKey: 5
+                  //selectedKey: 5,
                 }),
               ]
             }
