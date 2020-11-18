@@ -71,4 +71,45 @@
       display: inline-block;
     }
   }
+
+  .clsMain{
+    width: 50%;
+    margin: auto;
+    border: solid 1px #f2f2f2;
+  }
+
+  .msGridcol{
+    box-sizing: border-box;
+    border-bottom: 2px solid #F2F2F2;
+    padding: 20px;
+    text-align: center;
+  }
+
+  .clsHeading{
+    color: white;
+    padding-left: 38px;
+    font-size: large;
+    padding-top: 3px;
+  }
+
+  .ms-Icon{
+    color: red;
+  }
+  #clsIcon{
+    font-size: x-large;
+    color:#FF8158;
+  }
+  .clsDivHeading{
+    background-color: #2CA1D9;
+    height: 37px;
+    border-right: #f2f2f2 solid 1px;
+    border-left: #f2f2f2 solid 1px;
+  }
+  #icon{
+    color: white;
+    font-size: x-large;
+    float: left;
+    padding-top: 5px;
+    padding-left: 5px;
+  }
 }

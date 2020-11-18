@@ -1,7 +1,9 @@
 declare interface ICalendarWepartWebPartStrings {
   PropertyPaneDescription: string;
-  BasicGroupName: string;
-  DescriptionFieldLabel: string;
+  ListURLFieldLabel: string;
+  DisplayItems: string;
+  NoItemFoundMessage: string;
+  PropertiesMessage: string;
 }
 
 declare module 'CalendarWepartWebPartStrings' {
